@@ -18,12 +18,14 @@ public class JavaFinder {
 
     private static Set<File> getDefaultJavaLocations() {
         Set<File> locations = new HashSet<>();
-
+        String userHome = System.getProperty("user.home");
         File currentJavaHome = new File(System.getProperty("java.home"));
+
+        // Check parent of current JAVA_HOME - if the current JRE is there, then others might be there too
         locations.add(currentJavaHome.getParentFile());
 
-        String userHome = System.getProperty("user.home");
         if(userHome != null) {
+            // SDKMan
             locations.add(new File(userHome, String.join(File.separator, ".sdkman", "candidates", "java")));
         }
 
