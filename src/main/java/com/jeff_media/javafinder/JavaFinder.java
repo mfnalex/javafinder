@@ -1,30 +1,28 @@
 package com.jeff_media.javafinder;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class JavaFinder {
 
-    private static final Comparator<JavaInstallation> JAVA_VERSION_COMPARATOR =
+    private static final Comparator<JavaInstallation> NEWER_VERSION_FIRST_COMPARATOR =
             (o1, o2) -> -o1.getJavaVersion().compareTo(o2.getJavaVersion());
 
     /**
      * Finds Java installations on the system. The returned list is sorted by version, with the highest version first.
+     * and JDKs before JREs.
      * @return list of Java installations
      */
     public static List<JavaInstallation> findInstallations() {
         Set<JavaInstallation> installations = new HashSet<>();
         for (File location : getDefaultJavaLocations()) {
-            installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT.getJavaExecutableName()).findInstallations());
+            installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT).findInstallations());
         }
-        return installations.stream().sorted(JAVA_VERSION_COMPARATOR).collect(Collectors.toList());
+        return installations.stream().sorted(NEWER_VERSION_FIRST_COMPARATOR).collect(Collectors.toList());
     }
 
     private static Set<File> getDefaultJavaLocations() {
@@ -78,7 +76,8 @@ public class JavaFinder {
 
     public static void main(String[] args) {
         findInstallations().forEach(java -> {
-            System.out.println("Found Java " + java.getJavaVersion().getMajor() + " (" + java.getFullVersion() + ") at " + java.getHomeDirectory().getAbsolutePath());
+            System.out.println("Found " + java.getType() + " " + java.getJavaVersion().getMajor() + " (" + java.getFullVersion() + ") at " + java.getHomeDirectory().getAbsolutePath());
+            //System.out.println("    " + String.join("\n    ", java.getCompleteVersionOutput()));
         });
     }
 

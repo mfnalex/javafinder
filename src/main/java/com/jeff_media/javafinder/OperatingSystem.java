@@ -9,19 +9,22 @@ public enum OperatingSystem {
     MACOS,
     LINUX,
     UNKNOWN,
-    WINDOWS("java.exe");
+    WINDOWS("java.exe", "javac.exe");
 
     public static final OperatingSystem CURRENT = getCurrentOS();
 
     @Getter
     private final String javaExecutableName;
+    @Getter
+    private final String javacExecutableName;
 
-    OperatingSystem(String javaExecutableName) {
+    OperatingSystem(String javaExecutableName, String javacExecutableName) {
         this.javaExecutableName = javaExecutableName;
+        this.javacExecutableName = javacExecutableName;
     }
 
     OperatingSystem() {
-        this("java");
+        this("java", "javac");
     }
 
     private static OperatingSystem getCurrentOS() {

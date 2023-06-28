@@ -9,10 +9,12 @@ public class DirectoryCrawler {
     private final File searchDir;
     private final List<JavaInstallation> installations = new ArrayList<>();
     private final String javaExecutableName;
+    private final String javacExecutableName;
 
-    public DirectoryCrawler(File searchDir, String javaExecutableName) {
+    public DirectoryCrawler(File searchDir, OperatingSystem os) {
         this.searchDir = searchDir;
-        this.javaExecutableName = javaExecutableName;
+        this.javaExecutableName = os.getJavaExecutableName();
+        this.javacExecutableName = os.getJavacExecutableName();
     }
 
     public List<JavaInstallation> findInstallations() {
@@ -28,8 +30,9 @@ public class DirectoryCrawler {
                 if (file.isDirectory()) {
                     if (file.getName().equals("bin")) {
                         File javaExecutable = new File(file, javaExecutableName);
+                        boolean isJdk = new File(file, javacExecutableName).canExecute();
                         if (javaExecutable.canExecute()) {
-                            installations.add(new JavaInstallation(searchDir, javaExecutable));
+                            installations.add(new JavaInstallation(searchDir, javaExecutable, isJdk ? JavaType.JDK : JavaType.JRE));
                         }
                     } else {
                         findInstallations(file);

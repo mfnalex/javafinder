@@ -17,10 +17,12 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
     private final String shortVersion;
     private final String fullVersion;
     private final JavaVersion javaVersion;
+    private final JavaType type;
 
-    public JavaInstallation(File homeDirectory, File executable) {
+    public JavaInstallation(File homeDirectory, File executable, JavaType type) {
         this.homeDirectory = homeDirectory;
         this.executable = executable;
+        this.type = type;
         this.completeVersionOutput = captureCompleteVersionOutput();
         shortVersion = completeVersionOutput.get(0).split("\"")[1];
         fullVersion = completeVersionOutput.get(1).split("\\(build ")[1].split("\\)")[0];
@@ -46,6 +48,10 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
 
     @Override
     public int compareTo(final JavaInstallation o) {
-        return javaVersion.compareTo(o.javaVersion);
+        int result = javaVersion.compareTo(o.javaVersion);
+        if (result != 0) {
+            return result;
+        }
+        return type.compareTo(o.type);
     }
 }
