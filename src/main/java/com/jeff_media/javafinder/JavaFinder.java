@@ -24,7 +24,7 @@ public class JavaFinder {
 
         String userHome = System.getProperty("user.home");
         if(userHome != null) {
-            locations.add(new File(userHome, ".sdkman/candidates/java"));
+            locations.add(new File(userHome, String.join(File.separator, ".sdkman", "candidates", "java")));
         }
 
         switch (OperatingSystem.CURRENT) {
