@@ -22,6 +22,11 @@ public class JavaFinder {
         File currentJavaHome = new File(System.getProperty("java.home"));
         locations.add(currentJavaHome.getParentFile());
 
+        String userHome = System.getProperty("user.home");
+        if(userHome != null) {
+            locations.add(new File(userHome, ".sdkman/candidates/java"));
+        }
+
         switch (OperatingSystem.CURRENT) {
             case WINDOWS: {
                 String programFiles = System.getenv("ProgramFiles");
@@ -36,10 +41,6 @@ public class JavaFinder {
             }
             case LINUX: {
                 locations.add(new File("/usr/lib/jvm"));
-                String userHome = System.getProperty("user.home");
-                if(userHome != null) {
-                    locations.add(new File(userHome, ".sdkman/candidates/java"));
-                }
                 break;
             }
             case MACOS: {
