@@ -1,2 +1,9 @@
-package com.jeff_media.javafinder;public interface JavaFinder {
+package com.jeff_media.javafinder;
+
+import java.util.List;
+
+public interface JavaFinder {
+
+    public List<JavaInstallation> findInstallations();
+
 }

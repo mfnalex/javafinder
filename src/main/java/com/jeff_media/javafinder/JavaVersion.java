@@ -9,40 +9,33 @@ import java.util.regex.Pattern;
  * Parses the output of java -version according to https://openjdk.org/jeps/223
  */
 @Data
-public class JavaVersionParser {
+public class JavaVersion {
 
-    private static final Pattern VERSION_PATTERN = Pattern.compile("(?<MAJOR>[0-9]+)([.](?<MINOR>[0-9]+))?([.](?<SECURITY>[0-9]+))?(-(?<PRE>[a-zA-Z0-9]+))?");
-    private static final Pattern PRE_9_VERSION_PATTERN = Pattern.compile("1[.](?<MAJOR>[0-9]+)([.](?<MINOR>[0-9]+))?(_(?<SECURITY>[0-9]+)?)?(-(?<PRE>[a-zA-Z0-9]+))?");
+    private static final Pattern VERSION_PATTERN = Pattern.compile("(?<major>[0-9]+)([.](?<minor>[0-9]+))?([.](?<security>[0-9]+))?(-(?<prerelease>[a-zA-Z0-9]+))?");
+    private static final Pattern PRE_9_VERSION_PATTERN = Pattern.compile("1[.](?<major>[0-9]+)([.](?<minor>[0-9]+))?(_(?<security>[0-9]+)?)?(-(?<prerelease>[a-zA-Z0-9]+))?");
 
-    private final String majorVersion;
-    private final String minorVersion;
-    private final String securityVersion;
-    private final String preReleaseVersion;
+    private final String major;
+    private final String minor;
+    private final String security;
+    private final String preRelease;
 
-    public JavaVersionParser(String version) {
+    public static JavaVersion fromFullVersionString(String version) {
+
+        //System.out.println(version);
 
         Pattern pattern = !version.startsWith("1.") ? VERSION_PATTERN : PRE_9_VERSION_PATTERN;
         Matcher matcher = pattern.matcher(version);
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException("Invalid version: " + version);
+        if(!matcher.find()) {
+            throw new IllegalArgumentException("Could not parse version: " + version);
         }
-        majorVersion = matcher.group("MAJOR");
-        minorVersion = matcher.group("MINOR");
-        securityVersion = matcher.group("SECURITY");
-        preReleaseVersion = matcher.group("PRE");
+        String major = matcher.group("major");
+        String minor = matcher.group("minor");
+        String security = matcher.group("security");
+        String preRelease = matcher.group("prerelease");
 
-        doSth("asd");
-        doSth((CharSequence) "asd");
-
+        return new JavaVersion(major, minor, security, preRelease);
     }
 
-    public void doSth(String asd) {
-
-    }
-
-    public void doSth(CharSequence asd) {
-
-    }
 
 
 }
