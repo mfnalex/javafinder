@@ -1,16 +1,15 @@
 package com.jeff_media.javafinder;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 @Getter
+@ToString
 public class JavaInstallation {
-
-
 
     private final File homeDirectory;
     private final File executable;
@@ -33,9 +32,9 @@ public class JavaInstallation {
         List<String> completeVersionOutput = new ArrayList<>();
         try {
             Process process = builder.start();
-            try(BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
                 String line;
-                while((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null) {
                     completeVersionOutput.add(line);
                 }
             }

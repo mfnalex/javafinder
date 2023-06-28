@@ -25,7 +25,7 @@ public class JavaVersion {
 
         Pattern pattern = !version.startsWith("1.") ? VERSION_PATTERN : PRE_9_VERSION_PATTERN;
         Matcher matcher = pattern.matcher(version);
-        if(!matcher.find()) {
+        if (!matcher.find()) {
             throw new IllegalArgumentException("Could not parse version: " + version);
         }
         String major = matcher.group("major");
@@ -35,7 +35,6 @@ public class JavaVersion {
 
         return new JavaVersion(major, minor, security, preRelease);
     }
-
 
 
 }
