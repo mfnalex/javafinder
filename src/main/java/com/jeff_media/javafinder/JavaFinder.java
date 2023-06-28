@@ -36,6 +36,10 @@ public class JavaFinder {
             }
             case LINUX: {
                 locations.add(new File("/usr/lib/jvm"));
+                String userHome = System.getProperty("user.home");
+                if(userHome != null) {
+                    locations.add(new File(userHome, ".sdkman/candidates/java"));
+                }
                 break;
             }
             case MACOS: {
