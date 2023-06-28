@@ -52,6 +52,6 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
         if (result != 0) {
             return result;
         }
-        return type.compareTo(o.type);
+        return -type.compareTo(o.type);
     }
 }
