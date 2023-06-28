@@ -27,9 +27,9 @@ public class DirectoryCrawler {
             for (File file : children) {
                 if (file.isDirectory()) {
                     if (file.getName().equals("bin")) {
-                        File javaExecutale = new File(file, javaExecutableName);
-                        if (javaExecutale.canExecute()) {
-                            installations.add(new JavaInstallation(file, javaExecutale));
+                        File javaExecutable = new File(file, javaExecutableName);
+                        if (javaExecutable.canExecute()) {
+                            installations.add(new JavaInstallation(searchDir, javaExecutable));
                         }
                     } else {
                         findInstallations(file);

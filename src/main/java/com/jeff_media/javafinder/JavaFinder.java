@@ -1,19 +1,30 @@
 package com.jeff_media.javafinder;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class JavaFinder {
 
-    public static Collection<JavaInstallation> findInstallations() {
-        Set<JavaInstallation> installations = new LinkedHashSet<>();
+    private static final Comparator<JavaInstallation> JAVA_VERSION_COMPARATOR =
+            (o1, o2) -> -o1.getJavaVersion().compareTo(o2.getJavaVersion());
+
+    /**
+     * Finds Java installations on the system. The returned list is sorted by version, with the highest version first.
+     * @return list of Java installations
+     */
+    public static List<JavaInstallation> findInstallations() {
+        Set<JavaInstallation> installations = new HashSet<>();
         for (File location : getDefaultJavaLocations()) {
             installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT.getJavaExecutableName()).findInstallations());
         }
-        return installations;
+        return installations.stream().sorted(JAVA_VERSION_COMPARATOR).collect(Collectors.toList());
     }
 
     private static Set<File> getDefaultJavaLocations() {
@@ -47,6 +58,10 @@ public class JavaFinder {
             }
             case MACOS: {
                 locations.add(new File("/Library/Java/JavaVirtualMachines"));
+                locations.add(new File("/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"));
+                if(userHome != null) {
+                    locations.add(new File(userHome, "Library/Java/JavaVirtualMachines"));
+                }
                 break;
             }
 

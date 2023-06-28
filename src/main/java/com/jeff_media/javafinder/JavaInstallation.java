@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @ToString
-public class JavaInstallation {
+public class JavaInstallation implements Comparable<JavaInstallation> {
 
     private final File homeDirectory;
     private final File executable;
@@ -44,4 +44,8 @@ public class JavaInstallation {
         return completeVersionOutput;
     }
 
+    @Override
+    public int compareTo(final JavaInstallation o) {
+        return javaVersion.compareTo(o.javaVersion);
+    }
 }
