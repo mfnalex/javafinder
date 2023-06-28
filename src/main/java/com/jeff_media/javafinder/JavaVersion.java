@@ -5,8 +5,6 @@ import lombok.Data;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.sun.xml.internal.ws.util.VersionUtil.compare;
-
 /**
  * Parses the output of java -version according to https://openjdk.org/jeps/223
  */
