@@ -37,6 +37,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
 
     /**
      * Creates a JavaVersion object from the output of {@code java -version}
+     *
      * @param javaVersionOutput output of {@code java -version}
      * @return JavaVersion object
      */
@@ -90,6 +91,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
 
     /**
      * Returns the major version, e.g. 17 for Java 17.0.1. Although java versions before 9 were called 1.x, this method will return x instead of 1 for those versions (so e.g. 8 for Java 1.8.0_292)
+     *
      * @return major version
      */
     public int getMajor() {
@@ -98,6 +100,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
 
     /**
      * Returns the minor version, e.g. 0 for Java 17.0.1
+     *
      * @return minor version
      */
     public int getMinor() {
@@ -106,6 +109,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
 
     /**
      * Returns the security version, e.g. 1 for Java 17.0.1
+     *
      * @return security version
      */
     public @Nullable String getSecurity() {
@@ -114,6 +118,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
 
     /**
      * Returns the pre-release version. This method is private because it's unreliable.
+     *
      * @return unreliable pre-release version
      */
     private @Nullable String getPreRelease() {
@@ -122,6 +127,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
 
     /**
      * Returns the complete output of {@code java -version}
+     *
      * @return output of {@code java -version}
      */
     public @NotNull List<String> getJavaVersionOutput() {
@@ -130,6 +136,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
 
     /**
      * Returns the short version, e.g. 17.0.1 for Java 17.0.1 or 15 for Java 15
+     *
      * @return short version
      */
     public @NotNull String getShortVersion() {
@@ -138,6 +145,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
 
     /**
      * Returns the full version, e.g. 17.0.1+12-LTS-39
+     *
      * @return full version
      */
     public @NotNull String getFullVersion() {

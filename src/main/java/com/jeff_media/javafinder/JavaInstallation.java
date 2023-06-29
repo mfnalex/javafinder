@@ -82,6 +82,7 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
 
     /**
      * Returns the javac executable of this Java installation if it's a JDK, or null if it's a JRE
+     *
      * @return javac executable, or null if this is a JRE
      */
     @Nullable

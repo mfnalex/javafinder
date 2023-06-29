@@ -1,5 +1,7 @@
 package com.jeff_media.javafinder;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;
@@ -18,9 +20,10 @@ public final class JavaFinder {
 
     /**
      * Finds Java installations on the system, sorted from newest to oldest, and JDKs before JREs of the same version.
+     *
      * @return list of Java installations
      */
-    public static List<JavaInstallation> findInstallations() {
+    public static @NotNull List<JavaInstallation> findInstallations() {
         Set<JavaInstallation> installations = new HashSet<>();
         for (File location : getDefaultJavaLocations()) {
             installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT).findInstallations());
@@ -30,15 +33,17 @@ public final class JavaFinder {
 
     /**
      * Finds Java installations on the system asynchronously, sorted from newest to oldest, and JDKs before JREs of the same version.
+     *
      * @return future containing list of Java installations
      */
-    public static CompletableFuture<List<JavaInstallation>> findInstallationsAsync() {
+    public static @NotNull CompletableFuture<List<JavaInstallation>> findInstallationsAsync() {
         return CompletableFuture.supplyAsync(JavaFinder::findInstallations);
     }
 
     /**
      * Returns a set of commonly used Java installation locations for the current operating system. This can contain
      * non-existing directories.
+     *
      * @return set of common Java installation locations
      */
     private static Set<File> getDefaultJavaLocations() {
@@ -49,7 +54,7 @@ public final class JavaFinder {
         // Check parent of current JAVA_HOME - if the current JRE is there, then others might be there too
         locations.add(currentJavaHome.getParentFile());
 
-        if(userHome != null) {
+        if (userHome != null) {
             // SDKMan
             locations.add(new File(userHome, String.join(File.separator, ".sdkman", "candidates", "java")));
         }
@@ -73,7 +78,7 @@ public final class JavaFinder {
             case MACOS: {
                 locations.add(new File("/Library/Java/JavaVirtualMachines"));
                 locations.add(new File("/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"));
-                if(userHome != null) {
+                if (userHome != null) {
                     locations.add(new File(userHome, "Library/Java/JavaVirtualMachines"));
                 }
                 break;
@@ -92,6 +97,7 @@ public final class JavaFinder {
 
     /**
      * Prints a list of all found Java versions to STDOUT, prefixing the currently running version with an asterisk.
+     *
      * @param args not used
      */
     public static void main(String[] args) {

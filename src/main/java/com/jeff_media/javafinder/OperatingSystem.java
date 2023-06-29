@@ -58,6 +58,7 @@ public enum OperatingSystem {
 
     /**
      * Returns the name of the Java executable for this operating system. This returns "java.exe" for Windows and "java" for all other operating systems.
+     *
      * @return name of the Java executable
      */
     public String getJavaExecutableName() {
@@ -66,6 +67,7 @@ public enum OperatingSystem {
 
     /**
      * Returns the name of the Java compiler executable for this operating system. This returns "javac.exe" for Windows and "javac" for all other operating systems.
+     *
      * @return name of the Java compiler executable
      */
     public String getJavacExecutableName() {
