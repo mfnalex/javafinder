@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class JavaFinder {
 
     /**
-     * Finds Java installations on the system from oldest to newest, and JREs before JDKs.
+     * Finds Java installations on the system, sorted from newest to oldest, and JDKs before JREs of the same version.
      * @return list of Java installations
      */
     public static List<JavaInstallation> findInstallations() {

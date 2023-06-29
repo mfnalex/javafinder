@@ -45,8 +45,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
         return new JavaVersion(major, minor, security, preRelease);
     }
 
-    @Override
-    public int compareTo(final JavaVersion o) {
+    private int compareOldBeforeNew(final JavaVersion o) {
         if(major != o.major) {
             return Integer.compare(major, o.major);
         }
@@ -57,5 +56,10 @@ public class JavaVersion implements Comparable<JavaVersion> {
             return security.compareTo(o.security);
         }
         return 0;
+    }
+
+    @Override
+    public int compareTo(JavaVersion o) {
+        return -compareOldBeforeNew(o);
     }
 }
