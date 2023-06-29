@@ -1,7 +1,8 @@
 # JavaFinder
-Finds installed Java versions on the system by looking through common paths on Windows, Linux, and macOS. The returned List is sorted from oldest to newest, and JREs coming before JDKs.
+Finds installed Java versions on the system by looking through common paths on Windows, Linux, and macOS. The returned List is sorted from newest to oldest Java version, with JDKs coming JREs of the same version.
 
-![image](https://github.com/JEFF-Media-GbR/javafinder/assets/1122571/7c97679c-a011-479b-8a6e-cc37f9e2997f)
+![image](https://github.com/JEFF-Media-GbR/javafinder/assets/1122571/975eb622-f821-4225-946b-41e6e55338b1)
+
 
 ## Maven
 ```xml
