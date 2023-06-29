@@ -1,8 +1,7 @@
 # JavaFinder
-Finds installed Java versions on the system by looking through common paths on Windows, Linux, and macOS. The returned List is sorted from newest to oldest Java version, with JDKs coming JREs of the same version.
+Finds installed Java versions on the system by looking through common paths on Windows, Linux, and macOS. The returned List is sorted from newest to oldest Java version, with JDKs coming JREs of the same version. When ran directly with `java -jar`, it prints the list to STDOUT, marking the currently running java version with an asterisk (*):
 
-![image](https://github.com/JEFF-Media-GbR/javafinder/assets/1122571/975eb622-f821-4225-946b-41e6e55338b1)
-
+![image](https://github.com/JEFF-Media-GbR/javafinder/assets/1122571/688efa74-8e68-4819-83d4-9d5cb7ed3e5a)
 
 ## Maven
 ```xml
@@ -24,6 +23,12 @@ Finds installed Java versions on the system by looking through common paths on W
 ```
 
 ## Usage
+Print to stdout from command line:
+```sh
+java -jar javafinder-1.0-SNAPSHOT.jar
+```
+
+Or through Java code:
 ```java
 Collection<JavaInstallation> installations = JavaFinder.findJavaInstallations();
 ```
