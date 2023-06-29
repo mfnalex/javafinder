@@ -4,14 +4,38 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jeff_media</groupId>
+    <groupId>com.jeff-media</groupId>
     <artifactId>javafinder</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>JavaFinder</name>
+    <description>Finds installed JDKs and JREs</description>
+    <url>https://github.com/JEFF-Media-GbR/javafinder</url>
+    <inceptionYear>2023</inceptionYear>
+
+    <scm>
+        <url>https://github.com/JEFF-Media-GbR/javafinder</url>
+    </scm>
+
+    <organization>
+        <name>JEFF Media GbR</name>
+        <url>https://www.jeff-media.com/</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>GPL-3.0-or-later</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <license.licenseName>gpl_v3</license.licenseName>
     </properties>
 
     <build>

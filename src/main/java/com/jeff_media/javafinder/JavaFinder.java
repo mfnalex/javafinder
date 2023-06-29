@@ -1,11 +1,31 @@
 package com.jeff_media.javafinder;
 
+/*-
+ * #%L
+ * JavaFinder
+ * %%
+ * Copyright (C) 2023 JEFF Media GbR
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -90,7 +110,18 @@ public final class JavaFinder {
             }
         }
 
+        // Remove non-existing directories
         locations.removeIf(file -> file == null || !file.isDirectory());
+
+        // Remove subdirectories of already added locations
+        Collection<File> locationsCopy = Collections.unmodifiableCollection(locations);
+        locations.removeIf(file -> {
+            for(File other : locationsCopy) {
+                if(other.equals(file)) continue;
+                if(file.getAbsolutePath().startsWith(other.getAbsolutePath() + File.separator)) return true;
+            }
+            return false;
+        });
 
         return locations;
     }

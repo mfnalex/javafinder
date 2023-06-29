@@ -72,3 +72,4 @@ Collection<JavaInstallation> installations = JavaFinder.findJavaInstallations();
 #### macOS
 - /Library/Java/JavaVirtualMachines
 - /Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
+- $HOME/Library/Java/JavaVirtualMachines
