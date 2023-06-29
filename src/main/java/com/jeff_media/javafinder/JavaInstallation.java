@@ -1,5 +1,6 @@
 package com.jeff_media.javafinder;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Getter
 @ToString
+@EqualsAndHashCode
 public class JavaInstallation implements Comparable<JavaInstallation> {
 
     private final File homeDirectory;
@@ -52,6 +54,6 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
         if (result != 0) {
             return result;
         }
-        return -type.compareTo(o.type);
+        return type.compareTo(o.type);
     }
 }

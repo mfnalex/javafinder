@@ -9,12 +9,8 @@ import java.util.stream.Collectors;
 
 public class JavaFinder {
 
-    private static final Comparator<JavaInstallation> NEWER_VERSION_FIRST_COMPARATOR =
-            (o1, o2) -> -o1.getJavaVersion().compareTo(o2.getJavaVersion());
-
     /**
-     * Finds Java installations on the system. The returned list is sorted by version, with the highest version first.
-     * and JDKs before JREs.
+     * Finds Java installations on the system from oldest to newest, and JREs before JDKs.
      * @return list of Java installations
      */
     public static List<JavaInstallation> findInstallations() {
@@ -22,7 +18,7 @@ public class JavaFinder {
         for (File location : getDefaultJavaLocations()) {
             installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT).findInstallations());
         }
-        return installations.stream().sorted(NEWER_VERSION_FIRST_COMPARATOR).collect(Collectors.toList());
+        return installations.stream().sorted().collect(Collectors.toList());
     }
 
     private static Set<File> getDefaultJavaLocations() {
