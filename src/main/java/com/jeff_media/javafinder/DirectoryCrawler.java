@@ -4,20 +4,20 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DirectoryCrawler {
+class DirectoryCrawler {
 
     private final File searchDir;
     private final List<JavaInstallation> installations = new ArrayList<>();
     private final String javaExecutableName;
     private final String javacExecutableName;
 
-    public DirectoryCrawler(File searchDir, OperatingSystem os) {
+    DirectoryCrawler(File searchDir, OperatingSystem os) {
         this.searchDir = searchDir;
         this.javaExecutableName = os.getJavaExecutableName();
         this.javacExecutableName = os.getJavacExecutableName();
     }
 
-    public List<JavaInstallation> findInstallations() {
+    List<JavaInstallation> findInstallations() {
         findInstallations(searchDir);
         return installations;
     }
@@ -30,9 +30,10 @@ public class DirectoryCrawler {
                 if (file.isDirectory()) {
                     if (file.getName().equals("bin")) {
                         File javaExecutable = new File(file, javaExecutableName);
-                        boolean isJdk = new File(file, javacExecutableName).canExecute();
+                        File javaCExecutable = new File(file, javacExecutableName);
+                        boolean isJdk = javaCExecutable.canExecute();
                         if (javaExecutable.canExecute()) {
-                            installations.add(new JavaInstallation(searchDir, javaExecutable, isJdk ? JavaType.JDK : JavaType.JRE));
+                            installations.add(new JavaInstallation(searchDir, javaExecutable, isJdk ? javaCExecutable : null, isJdk ? JavaType.JDK : JavaType.JRE));
                         }
                     } else {
                         findInstallations(file);

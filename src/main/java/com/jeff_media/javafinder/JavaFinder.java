@@ -1,16 +1,20 @@
 package com.jeff_media.javafinder;
 
 import java.io.File;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
  * JavaFinder core class.
  */
-public class JavaFinder {
+public final class JavaFinder {
+
+    private JavaFinder() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * Finds Java installations on the system, sorted from newest to oldest, and JDKs before JREs of the same version.
@@ -22,6 +26,14 @@ public class JavaFinder {
             installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT).findInstallations());
         }
         return installations.stream().sorted().collect(Collectors.toList());
+    }
+
+    /**
+     * Finds Java installations on the system asynchronously, sorted from newest to oldest, and JDKs before JREs of the same version.
+     * @return future containing list of Java installations
+     */
+    public static CompletableFuture<List<JavaInstallation>> findInstallationsAsync() {
+        return CompletableFuture.supplyAsync(JavaFinder::findInstallations);
     }
 
     /**
@@ -67,7 +79,7 @@ public class JavaFinder {
                 break;
             }
 
-            case UNKNOWN: {
+            case OTHER: {
                 // Show warning?
                 break;
             }
@@ -78,9 +90,13 @@ public class JavaFinder {
         return locations;
     }
 
+    /**
+     * Prints a list of all found Java versions to STDOUT, prefixing the currently running version with an asterisk.
+     * @param args not used
+     */
     public static void main(String[] args) {
         findInstallations().forEach(java -> {
-            System.out.println((java.isCurrentJavaVersion() ? "* " : "  ") + java.getType() + " " + java.getJavaVersion().getMajor() + " (" + java.getFullVersion() + ") at " + java.getHomeDirectory().getAbsolutePath());
+            System.out.println((java.isCurrentJavaVersion() ? "* " : "  ") + java.getType() + " " + java.getVersion().getMajor() + " (" + java.getVersion().getFullVersion() + ") at " + java.getHomeDirectory().getAbsolutePath());
         });
     }
 
