@@ -20,6 +20,7 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
     private final String fullVersion;
     private final JavaVersion javaVersion;
     private final JavaType type;
+    private final boolean isCurrentJavaVersion;
 
     public JavaInstallation(File homeDirectory, File executable, JavaType type) {
         this.homeDirectory = homeDirectory;
@@ -29,6 +30,12 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
         shortVersion = completeVersionOutput.get(0).split("\"")[1];
         fullVersion = completeVersionOutput.get(1).split("\\(build ")[1].split("\\)")[0];
         javaVersion = JavaVersion.fromFullVersionString(fullVersion);
+        String currentJavaHome = System.getProperty("java.home");
+        if(currentJavaHome != null) {
+            isCurrentJavaVersion = currentJavaHome.equals(homeDirectory.getAbsolutePath());
+        } else {
+            isCurrentJavaVersion = false;
+        }
     }
 
     private List<String> captureCompleteVersionOutput() {

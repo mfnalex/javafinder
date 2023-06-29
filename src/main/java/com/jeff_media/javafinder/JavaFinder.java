@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * JavaFinder core class.
+ */
 public class JavaFinder {
 
     /**
@@ -21,6 +24,11 @@ public class JavaFinder {
         return installations.stream().sorted().collect(Collectors.toList());
     }
 
+    /**
+     * Returns a set of commonly used Java installation locations for the current operating system. This can contain
+     * non-existing directories.
+     * @return set of common Java installation locations
+     */
     private static Set<File> getDefaultJavaLocations() {
         Set<File> locations = new HashSet<>();
         String userHome = System.getProperty("user.home");
@@ -72,8 +80,7 @@ public class JavaFinder {
 
     public static void main(String[] args) {
         findInstallations().forEach(java -> {
-            System.out.println("Found " + java.getType() + " " + java.getJavaVersion().getMajor() + " (" + java.getFullVersion() + ") at " + java.getHomeDirectory().getAbsolutePath());
-            //System.out.println("    " + String.join("\n    ", java.getCompleteVersionOutput()));
+            System.out.println((java.isCurrentJavaVersion() ? "* " : "  ") + java.getType() + " " + java.getJavaVersion().getMajor() + " (" + java.getFullVersion() + ") at " + java.getHomeDirectory().getAbsolutePath());
         });
     }
 
