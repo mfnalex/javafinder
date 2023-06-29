@@ -1,3 +1,9 @@
+# JavaFinder
+Finds installed Java versions on the system by looking through common paths on Windows, Linux, and macOS. The returned List is sorted from newest to oldest Java version, with JDKs coming JREs of the same version.
+
+![image](https://github.com/JEFF-Media-GbR/javafinder/assets/1122571/975eb622-f821-4225-946b-41e6e55338b1)
+
+
 ## Maven
 ```xml
 
@@ -21,3 +27,20 @@
 ```java
 Collection<JavaInstallation> installations = JavaFinder.findJavaInstallations();
 ```
+
+## List of checked locations
+
+#### Universal
+- Parent folder of current $JAVA_HOME
+- $HOME/.sdkman/candidates/java
+
+#### Windows
+- $ProgramFiles/Java
+- $ProgramFiles(x86)/Java
+
+#### Linux
+- /usr/lib/jvm
+
+#### macOS
+- /Library/Java/JavaVirtualMachines
+- /Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
