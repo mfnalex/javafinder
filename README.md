@@ -2,7 +2,7 @@
 
 <!--- Buttons start -->
 <p align="center">
-  <a href="https://repo.jeff-media.com/javadoc/public/com/jeff_media/javafinder/1.1-SNAPSHOT">
+  <a href="https://repo.jeff-media.com/javadoc/public/com/jeff-media/javafinder/1.1-SNAPSHOT">
     <img src="https://static.jeff-media.com/img/button_javadocs.png?3" alt="Javadocs">
   </a>
   <a href="https://discord.jeff-media.com/">
@@ -15,8 +15,8 @@
 <!--- Buttons end -->
 
 <p align="center">
-<a href="https://repo.jeff-media.com/#/public/com/jeff_media/javafinder">
-  <img src="https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo.jeff-media.com%2Fpublic%2Fcom%2Fjeff_media%2Fjavafinder%2Fmaven-metadata.xml" alt="Maven" /></a>
+<a href="https://repo.jeff-media.com/#/public/com/jeff-media/javafinder">
+  <img src="https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo.jeff-media.com%2Fpublic%2Fcom%2Fjeff-media%2Fjavafinder%2Fmaven-metadata.xml" alt="Maven" /></a>
 <img src="https://img.shields.io/github/last-commit/jeff-media-gbr/javafinder" />
 </p>
 
@@ -38,7 +38,7 @@ The returned List is sorted from newest to oldest Java version, with JDKs coming
 </repositories>
 <dependencies>
     <dependency>
-        <groupId>com.jeff_media</groupId>
+        <groupId>com.jeff-media</groupId>
         <artifactId>javafinder</artifactId>
         <version>1.1-SNAPSHOT</version>
     </dependency>
