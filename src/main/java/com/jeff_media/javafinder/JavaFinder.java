@@ -32,10 +32,29 @@ import java.util.stream.Collectors;
 /**
  * JavaFinder core class.
  */
-public final class JavaFinder {
+public class JavaFinder {
 
-    private JavaFinder() {
-        throw new IllegalStateException("Utility class");
+    private final Set<File> searchDirectories = new HashSet<>();
+
+    public static JavaFinderBuilder builder() {
+        return new JavaFinderBuilder();
+    }
+
+    JavaFinder(Collection<File> searchDirectories) {
+        this.searchDirectories.addAll(searchDirectories);
+
+        // Remove non-existing directories
+        searchDirectories.removeIf(file -> file == null || !file.isDirectory());
+
+        // Remove subdirectories of already added locations
+        Collection<File> locationsCopy = Collections.unmodifiableCollection(searchDirectories);
+        searchDirectories.removeIf(file -> {
+            for(File other : locationsCopy) {
+                if(other.equals(file)) continue;
+                if(file.getAbsolutePath().startsWith(other.getAbsolutePath() + File.separator)) return true;
+            }
+            return false;
+        });
     }
 
     /**
@@ -43,10 +62,12 @@ public final class JavaFinder {
      *
      * @return list of Java installations
      */
-    public static @NotNull List<JavaInstallation> findInstallations() {
+    public @NotNull List<JavaInstallation> findInstallations() {
         Set<JavaInstallation> installations = new HashSet<>();
-        for (File location : getDefaultJavaLocations()) {
-            installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT).findInstallations());
+        for (File location : searchDirectories) {
+            if(location.isDirectory()) {
+                installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT).findInstallations());
+            }
         }
         return installations.stream().sorted().collect(Collectors.toList());
     }
@@ -56,17 +77,17 @@ public final class JavaFinder {
      *
      * @return future containing list of Java installations
      */
-    public static @NotNull CompletableFuture<List<JavaInstallation>> findInstallationsAsync() {
-        return CompletableFuture.supplyAsync(JavaFinder::findInstallations);
+    public @NotNull CompletableFuture<List<JavaInstallation>> findInstallationsAsync() {
+        return CompletableFuture.supplyAsync(this::findInstallations);
     }
 
     /**
-     * Returns a set of commonly used Java installation locations for the current operating system. This can contain
-     * non-existing directories.
+     * Returns a set of commonly used Java installation locations for the current operating system. All files returned
+     * are guaranteed to exist and to be directories.
      *
      * @return set of common Java installation locations
      */
-    private static Set<File> getDefaultJavaLocations() {
+    static Set<File> getDefaultJavaLocations() {
         Set<File> locations = new HashSet<>();
         String userHome = System.getProperty("user.home");
         File currentJavaHome = new File(System.getProperty("java.home"));
@@ -110,19 +131,6 @@ public final class JavaFinder {
             }
         }
 
-        // Remove non-existing directories
-        locations.removeIf(file -> file == null || !file.isDirectory());
-
-        // Remove subdirectories of already added locations
-        Collection<File> locationsCopy = Collections.unmodifiableCollection(locations);
-        locations.removeIf(file -> {
-            for(File other : locationsCopy) {
-                if(other.equals(file)) continue;
-                if(file.getAbsolutePath().startsWith(other.getAbsolutePath() + File.separator)) return true;
-            }
-            return false;
-        });
-
         return locations;
     }
 
@@ -132,7 +140,7 @@ public final class JavaFinder {
      * @param args not used
      */
     public static void main(String[] args) {
-        findInstallations().forEach(java -> {
+        JavaFinder.builder().build().findInstallations().forEach(java -> {
             System.out.println((java.isCurrentJavaVersion() ? "* " : "  ") + java.getType() + " " + java.getVersion().getMajor() + " (" + java.getVersion().getFullVersion() + ") at " + java.getHomeDirectory().getAbsolutePath());
         });
     }

@@ -40,7 +40,7 @@ The returned List is sorted from newest to oldest Java version, with JDKs coming
     <dependency>
         <groupId>com.jeff_media</groupId>
         <artifactId>javafinder</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.1-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```
@@ -53,7 +53,7 @@ java -jar javafinder-1.0-SNAPSHOT.jar
 
 Or through Java code:
 ```java
-Collection<JavaInstallation> installations = JavaFinder.findJavaInstallations();
+Collection<JavaInstallation> installations = JavaFinder.builder().build().findInstallations()
 ```
 
 ## List of checked locations

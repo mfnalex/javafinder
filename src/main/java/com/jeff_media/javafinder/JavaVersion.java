@@ -112,6 +112,14 @@ public class JavaVersion implements Comparable<JavaVersion> {
     }
 
     /**
+     * Returns the major version of the class file format of this Java version, e.g. 61 for Java 17.0.1
+     * @return major version of the class file format
+     */
+    public int getClassFileMajorVersion() {
+        return major + 44;
+    }
+
+    /**
      * Returns the major version, e.g. 17 for Java 17.0.1. Although java versions before 9 were called 1.x, this method will return x instead of 1 for those versions (so e.g. 8 for Java 1.8.0_292)
      *
      * @return major version

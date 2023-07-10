@@ -23,6 +23,7 @@ package com.jeff_media.javafinder;
  */
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,11 @@ class DirectoryCrawler {
                         File javaCExecutable = new File(file, javacExecutableName);
                         boolean isJdk = javaCExecutable.canExecute();
                         if (javaExecutable.canExecute()) {
-                            installations.add(new JavaInstallation(searchDir, javaExecutable, isJdk ? javaCExecutable : null, isJdk ? JavaType.JDK : JavaType.JRE));
+                            try {
+                                installations.add(new JavaInstallation(searchDir, javaExecutable, isJdk ? javaCExecutable : null, isJdk ? JavaType.JDK : JavaType.JRE));
+                            } catch (IOException ignored) {
+                                // ignored.printStackTrace();
+                            }
                         }
                     } else {
                         findInstallations(file);

@@ -42,7 +42,7 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
     private final @NotNull JavaType type;
     private final boolean isCurrentJavaVersion;
 
-    public JavaInstallation(@NotNull File homeDirectory, @NotNull File javaExecutable, @Nullable File javaxExecutable, @NotNull JavaType type) {
+    public JavaInstallation(@NotNull File homeDirectory, @NotNull File javaExecutable, @Nullable File javaxExecutable, @NotNull JavaType type) throws IOException {
         this.homeDirectory = homeDirectory;
         this.javaExecutable = javaExecutable;
         this.javacExecutable = javaxExecutable;
@@ -56,10 +56,9 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
         }
     }
 
-    private List<String> captureJavaVersionOutput() {
+    private List<String> captureJavaVersionOutput() throws IOException {
         ProcessBuilder builder = new ProcessBuilder(javaExecutable.getAbsolutePath(), "-version");
         List<String> completeVersionOutput = new ArrayList<>();
-        try {
             Process process = builder.start();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
                 String line;
@@ -67,9 +66,7 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
                     completeVersionOutput.add(line);
                 }
             }
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+
         return completeVersionOutput;
     }
 
