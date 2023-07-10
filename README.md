@@ -2,7 +2,7 @@
 
 <!--- Buttons start -->
 <p align="center">
-  <a href="https://repo.jeff-media.com/javadoc/public/com/jeff_media/javafinder/1.0-SNAPSHOT">
+  <a href="https://repo.jeff-media.com/javadoc/public/com/jeff_media/javafinder/1.1-SNAPSHOT">
     <img src="https://static.jeff-media.com/img/button_javadocs.png?3" alt="Javadocs">
   </a>
   <a href="https://discord.jeff-media.com/">
@@ -48,7 +48,7 @@ The returned List is sorted from newest to oldest Java version, with JDKs coming
 ## Usage
 Print to stdout from command line:
 ```sh
-java -jar javafinder-1.0-SNAPSHOT.jar
+java -jar javafinder-1.1-SNAPSHOT.jar
 ```
 
 Or through Java code:
