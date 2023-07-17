@@ -46,7 +46,6 @@ class DirectoryCrawler {
     }
 
     private void findInstallations(File searchDir) {
-        //System.out.println("Searching " + searchDir.getAbsolutePath());
         File[] children = searchDir.listFiles();
         if (children != null) {
             for (File file : children) {

@@ -64,6 +64,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
      * @return JavaVersion object
      */
     public static JavaVersion fromJavaVersionOutput(@NotNull List<String> javaVersionOutput) {
+        javaVersionOutput.removeIf(line -> line.startsWith("Picked up "));
         List<String> output = Collections.unmodifiableList(javaVersionOutput);
 
         String shortVersion = output.get(0).split("\"")[1];
