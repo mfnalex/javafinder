@@ -65,7 +65,9 @@ public class JavaFinder {
     public @NotNull List<JavaInstallation> findInstallations() {
         Set<JavaInstallation> installations = new HashSet<>();
         for (File location : searchDirectories) {
+            //("Searching for Java installations in " + location.getAbsolutePath());
             if(location.isDirectory()) {
+                //System.out.println("| - " + location.getAbsolutePath() + " is a directory");
                 installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT).findInstallations());
             }
         }
@@ -93,7 +95,14 @@ public class JavaFinder {
         File currentJavaHome = new File(System.getProperty("java.home"));
 
         // Check parent of current JAVA_HOME - if the current JRE is there, then others might be there too
-        locations.add(currentJavaHome.getParentFile());
+        File parentOfCurrentJavaHome = currentJavaHome.getParentFile();
+        File userHomeFile = new File(userHome);
+        if(!parentOfCurrentJavaHome.equals(userHomeFile)) {
+            locations.add(currentJavaHome.getParentFile());
+        }
+
+        locations.add(currentJavaHome);
+        locations.add(new File(userHomeFile, ".jdks"));
 
         if (userHome != null) {
             // SDKMan

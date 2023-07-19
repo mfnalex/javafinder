@@ -55,10 +55,11 @@ class DirectoryCrawler {
                         File javaCExecutable = new File(file, javacExecutableName);
                         boolean isJdk = javaCExecutable.canExecute();
                         if (javaExecutable.canExecute()) {
+                            //System.out.println("Found " + (isJdk ? "JDK" : "JRE") + " at " + searchDir.getAbsolutePath());
                             try {
                                 installations.add(new JavaInstallation(searchDir, javaExecutable, isJdk ? javaCExecutable : null, isJdk ? JavaType.JDK : JavaType.JRE));
                             } catch (IOException ignored) {
-                                // ignored.printStackTrace();
+                                ignored.printStackTrace();
                             }
                         }
                     } else {
