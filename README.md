@@ -15,8 +15,7 @@
 <!--- Buttons end -->
 
 <p align="center">
-<a href="https://repo.jeff-media.com/#/public/com/jeff-media/javafinder">
-  <img src="https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo.jeff-media.com%2Fpublic%2Fcom%2Fjeff-media%2Fjavafinder%2Fmaven-metadata.xml" alt="Maven" /></a>
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jeff-media/javafinder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.rsql/rsql-parser)
 <img src="https://img.shields.io/github/last-commit/jeff-media-gbr/javafinder" />
 </p>
 
