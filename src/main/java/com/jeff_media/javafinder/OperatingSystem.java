@@ -62,16 +62,17 @@ public enum OperatingSystem {
 
     private static OperatingSystem getCurrentOS() {
         String osName = System.getProperty("os.name");
+        osName = osName == null ? "" : osName.toLowerCase();
 
-        if (osName.startsWith("Mac")) {
+        if (osName.startsWith("mac")) {
             return MACOS;
         }
 
-        if (osName.startsWith("Linux") || osName.startsWith("LINUX")) {
+        if (osName.startsWith("linux")) {
             return LINUX;
         }
 
-        if (osName.startsWith("Windows")) {
+        if (osName.startsWith("windows")) {
             return WINDOWS;
         }
 
