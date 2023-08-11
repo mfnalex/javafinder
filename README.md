@@ -40,7 +40,7 @@ The returned List is sorted from newest to oldest Java version, with JDKs coming
     <dependency>
         <groupId>com.jeff-media</groupId>
         <artifactId>javafinder</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.3-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```
