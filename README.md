@@ -52,7 +52,7 @@ Collection<JavaInstallation> installations = JavaFinder.builder().build().findIn
 ## List of checked locations
 
 #### Universal
-- Parent folder of current $JAVA_HOME
+- Parent folder of current $JAVA_HOME (unless that directory is the same as $HOME)
 - $HOME/.sdkman/candidates/java
 
 #### Windows
