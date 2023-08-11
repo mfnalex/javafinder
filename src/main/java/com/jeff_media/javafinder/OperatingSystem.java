@@ -10,17 +10,19 @@ package com.jeff_media.javafinder;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Enum representing the operating system
@@ -46,12 +48,15 @@ public enum OperatingSystem {
     /**
      * The current operating system
      */
+    @NotNull
     public static final OperatingSystem CURRENT = getCurrentOS();
 
+    @NotNull
     private final String javaExecutableName;
+    @NotNull
     private final String javacExecutableName;
 
-    OperatingSystem(String javaExecutableName, String javacExecutableName) {
+    OperatingSystem(@NotNull String javaExecutableName, @NotNull String javacExecutableName) {
         this.javaExecutableName = javaExecutableName;
         this.javacExecutableName = javacExecutableName;
     }
@@ -60,6 +65,7 @@ public enum OperatingSystem {
         this("java", "javac");
     }
 
+    @NotNull
     private static OperatingSystem getCurrentOS() {
         String osName = System.getProperty("os.name");
         osName = osName == null ? "" : osName.toLowerCase();
@@ -84,6 +90,7 @@ public enum OperatingSystem {
      *
      * @return name of the Java executable
      */
+    @NotNull
     public String getJavaExecutableName() {
         return this.javaExecutableName;
     }
@@ -93,6 +100,7 @@ public enum OperatingSystem {
      *
      * @return name of the Java compiler executable
      */
+    @NotNull
     public String getJavacExecutableName() {
         return this.javacExecutableName;
     }

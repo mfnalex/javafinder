@@ -10,12 +10,12 @@ package com.jeff_media.javafinder;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -40,14 +40,20 @@ public class JavaVersion implements Comparable<JavaVersion> {
 
     private final int major;
     private final int minor;
-    private final String security;
-    private final String preRelease;
+    @Nullable private final String security;
+    @Nullable private final String preRelease;
 
     private final List<String> javaVersionOutput;
-    private final String shortVersion;
-    private final String fullVersion;
+    @NotNull private final String shortVersion;
+    @NotNull private final String fullVersion;
 
-    private JavaVersion(int major, int minor, String security, String preRelease, List<String> javaVersionOutput, String shortVersion, String fullVersion) {
+    private JavaVersion(int major,
+                        int minor,
+                        @Nullable String security,
+                        @Nullable String preRelease,
+                        List<String> javaVersionOutput,
+                        @NotNull String shortVersion,
+                        @NotNull String fullVersion) {
         this.major = major;
         this.minor = minor;
         this.security = security;
@@ -94,7 +100,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
         return new JavaVersion(major, minor, security, preRelease, javaVersionOutput, shortVersion, fullVersion);
     }
 
-    private int compareOldBeforeNew(final JavaVersion o) {
+    private int compareOldBeforeNew(@NotNull final JavaVersion o) {
         if (major != o.major) {
             return Integer.compare(major, o.major);
         }
@@ -108,12 +114,13 @@ public class JavaVersion implements Comparable<JavaVersion> {
     }
 
     @Override
-    public int compareTo(JavaVersion o) {
+    public int compareTo(@NotNull final JavaVersion o) {
         return -compareOldBeforeNew(o);
     }
 
     /**
      * Returns the major version of the class file format of this Java version, e.g. 61 for Java 17.0.1
+     *
      * @return major version of the class file format
      */
     public int getClassFileMajorVersion() {
@@ -143,7 +150,8 @@ public class JavaVersion implements Comparable<JavaVersion> {
      *
      * @return security version
      */
-    public @Nullable String getSecurity() {
+    @Nullable
+    public String getSecurity() {
         return this.security;
     }
 
@@ -187,7 +195,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
         if (o == this) return true;
         if (!(o instanceof JavaVersion)) return false;
         final JavaVersion other = (JavaVersion) o;
-        if (!other.canEqual((Object) this)) return false;
+        if (!other.canEqual(this)) return false;
         if (this.getMajor() != other.getMajor()) return false;
         if (this.getMinor() != other.getMinor()) return false;
         final Object this$security = this.getSecurity();

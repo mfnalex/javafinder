@@ -6,7 +6,7 @@
 
     <groupId>com.jeff-media</groupId>
     <artifactId>javafinder</artifactId>
-    <version>1.3.1</version>
+    <version>1.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>JavaFinder</name>

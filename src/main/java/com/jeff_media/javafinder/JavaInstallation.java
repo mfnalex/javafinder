@@ -42,7 +42,10 @@ public class JavaInstallation implements Comparable<JavaInstallation> {
     private final @NotNull JavaType type;
     private final boolean isCurrentJavaVersion;
 
-    public JavaInstallation(@NotNull File homeDirectory, @NotNull File javaExecutable, @Nullable File javaxExecutable, @NotNull JavaType type) throws IOException {
+    public JavaInstallation(@NotNull File homeDirectory,
+                            @NotNull File javaExecutable,
+                            @Nullable File javaxExecutable,
+                            @NotNull JavaType type) throws IOException {
         this.homeDirectory = homeDirectory;
         this.javaExecutable = javaExecutable;
         this.javacExecutable = javaxExecutable;
