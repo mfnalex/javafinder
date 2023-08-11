@@ -15,7 +15,7 @@
 <!--- Buttons end -->
 
 <p align="center">
-<a href="https://maven-badges.herokuapp.com/maven-central/com.jeff-media/javafinder"><img src="https://maven-badges.herokuapp.com/maven-central/com.jeff-media/javafinder/badge.svg" /></a>
+<a href="https://central.sonatype.com/artifact/com.jeff-media/javafinder/"><img src="https://maven-badges.herokuapp.com/maven-central/com.jeff-media/javafinder/badge.svg" /></a>
 <img src="https://img.shields.io/github/last-commit/jeff-media-gbr/javafinder" />
 </p>
 
