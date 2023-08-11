@@ -27,20 +27,13 @@ The returned List is sorted from newest to oldest Java version, with JDKs coming
 ![image](https://github.com/JEFF-Media-GbR/javafinder/assets/1122571/688efa74-8e68-4819-83d4-9d5cb7ed3e5a)
 
 ## Maven
+The dependency is available on Maven Central:
 ```xml
-
-<repositories>
-    <repository>
-        <id>jeff-media-public</id>
-        <name>JEFF Media GbR Repository</name>
-        <url>https://repo.jeff-media.com/public</url>
-    </repository>
-</repositories>
 <dependencies>
     <dependency>
         <groupId>com.jeff-media</groupId>
         <artifactId>javafinder</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.3</version>
     </dependency>
 </dependencies>
 ```
