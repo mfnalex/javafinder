@@ -154,7 +154,7 @@ public class JavaFinder {
                         .map(location -> CompletableFuture.runAsync(() -> installations
                                 .addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT).findInstallations())))
                         .toArray(CompletableFuture[]::new))
-                .thenApply((v) -> installations.stream().sorted().collect(Collectors.toList()));
+                .thenApply(Void -> installations.stream().sorted().collect(Collectors.toList()));
 
     }
 
