@@ -61,7 +61,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.jeff_media.javafinder.JavaFinder</mainClass>
+                            <mainClass>com.jeff_media.javafinder.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +37,10 @@ public class JavaFinder {
 
     private final Set<File> searchDirectories = new HashSet<>();
 
+    /**
+     * Creates a new JavaFinderBuilder
+     * @return JavaFinderBuilder
+     */
     public static JavaFinderBuilder builder() {
         return new JavaFinderBuilder();
     }
@@ -61,13 +66,13 @@ public class JavaFinder {
      * Finds Java installations on the system, sorted from newest to oldest, and JDKs before JREs of the same version.
      *
      * @return list of Java installations
+     * @deprecated use {@link #findInstallationsAsync()} instead
      */
+    @Deprecated
     public @NotNull List<JavaInstallation> findInstallations() {
         Set<JavaInstallation> installations = new HashSet<>();
         for (File location : searchDirectories) {
-            //("Searching for Java installations in " + location.getAbsolutePath());
             if(location.isDirectory()) {
-                //System.out.println("| - " + location.getAbsolutePath() + " is a directory");
                 installations.addAll(new DirectoryCrawler(location, OperatingSystem.CURRENT).findInstallations());
             }
         }
@@ -80,7 +85,30 @@ public class JavaFinder {
      * @return future containing list of Java installations
      */
     public @NotNull CompletableFuture<List<JavaInstallation>> findInstallationsAsync() {
-        return CompletableFuture.supplyAsync(this::findInstallations);
+        Set<JavaInstallation> installations = new HashSet<>();
+        List<DirectoryCrawler> crawlers = new ArrayList<>();
+        for (File location : searchDirectories) {
+            if(location.isDirectory()) {
+                crawlers.add(new DirectoryCrawler(location, OperatingSystem.CURRENT));
+            }
+        }
+        CountDownLatch latch = new CountDownLatch(crawlers.size());
+
+        for(DirectoryCrawler crawler : crawlers) {
+            CompletableFuture.runAsync(() -> {
+                installations.addAll(crawler.findInstallations());
+                latch.countDown();
+            });
+        }
+
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                latch.await();
+            } catch (InterruptedException exception) {
+                Thread.currentThread().interrupt();
+            }
+            return installations.stream().sorted().collect(Collectors.toList());
+        });
     }
 
     /**
@@ -143,15 +171,6 @@ public class JavaFinder {
         return locations;
     }
 
-    /**
-     * Prints a list of all found Java versions to STDOUT, prefixing the currently running version with an asterisk.
-     *
-     * @param args not used
-     */
-    public static void main(String[] args) {
-        JavaFinder.builder().build().findInstallations().forEach(java -> {
-            System.out.println((java.isCurrentJavaVersion() ? "* " : "  ") + java.getType() + " " + java.getVersion().getMajor() + " (" + java.getVersion().getFullVersion() + ") at " + java.getHomeDirectory().getAbsolutePath());
-        });
-    }
+
 
 }

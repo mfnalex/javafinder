@@ -33,5 +33,6 @@ public enum JavaType {
     /**
      * Java Runtime Environment
      */
-    JRE
+    JRE;
+
 }
