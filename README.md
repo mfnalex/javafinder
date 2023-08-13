@@ -32,7 +32,7 @@ The dependency is available on Maven Central:
     <dependency>
         <groupId>com.jeff-media</groupId>
         <artifactId>javafinder</artifactId>
-        <version>1.3.1</version>
+        <version>1.4</version>
     </dependency>
 </dependencies>
 ```
