@@ -2,6 +2,9 @@ package com.jeff_media.javafinder;
 
 import java.util.List;
 
+/**
+ * JavaFinder main class
+ */
 class Main {
 
     public static void main(String[] args) {
