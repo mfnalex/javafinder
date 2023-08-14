@@ -2,7 +2,7 @@
 
 <!--- Buttons start -->
 <p align="center">
-  <a href="https://hub.jeff-media.com/javadocs/com/jeff-media/javafinder/1.3.1">
+  <a href="https://hub.jeff-media.com/javadocs/com/jeff-media/javafinder/1.4">
     <img src="https://static.jeff-media.com/img/button_javadocs.png?3" alt="Javadocs">
   </a>
   <a href="https://discord.jeff-media.com/">
@@ -40,7 +40,7 @@ The dependency is available on Maven Central:
 ## Usage
 Print to stdout from command line:
 ```sh
-java -jar javafinder-1.3.1.jar
+java -jar javafinder-1.4.jar
 ```
 
 Or through Java code:
