@@ -6,7 +6,7 @@
 
     <groupId>com.jeff-media</groupId>
     <artifactId>javafinder</artifactId>
-    <version>1.4</version>
+    <version>1.4.1</version>
     <packaging>jar</packaging>
 
     <name>JavaFinder</name>
@@ -44,6 +44,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <license.licenseName>gpl_v3</license.licenseName>
+        <maven.plugin.validation>verbose</maven.plugin.validation>
     </properties>
 
     <build>

@@ -95,9 +95,11 @@ public class JavaFinder {
                 String programFilesX86 = System.getenv("ProgramFiles(x86)");
                 if (programFiles != null) {
                     locations.add(new File(programFiles, "Java"));
+                    locations.add(new File(programFiles, "Eclipse Foundation"));
                 }
                 if (programFilesX86 != null) {
                     locations.add(new File(programFilesX86, "Java"));
+                    locations.add(new File(programFilesX86, "Eclipse Foundation"));
                 }
                 break;
             }

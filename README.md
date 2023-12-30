@@ -32,7 +32,7 @@ The dependency is available on Maven Central:
     <dependency>
         <groupId>com.jeff-media</groupId>
         <artifactId>javafinder</artifactId>
-        <version>1.4</version>
+        <version>1.4.1</version>
     </dependency>
 </dependencies>
 ```
@@ -56,7 +56,9 @@ Collection<JavaInstallation> installations = JavaFinder.builder().build().findIn
 
 #### Windows
 - $ProgramFiles/Java
+- $ProgramFiles/Eclipse Foundation
 - $ProgramFiles(x86)/Java
+- $ProgramFiles(x86)/Eclipse Foundation
 
 #### Linux
 - /usr/lib/jvm
