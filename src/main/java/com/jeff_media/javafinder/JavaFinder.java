@@ -25,9 +25,11 @@ package com.jeff_media.javafinder;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -91,16 +93,19 @@ public class JavaFinder {
 
         switch (OperatingSystem.CURRENT) {
             case WINDOWS: {
-                String programFiles = System.getenv("ProgramFiles");
-                String programFilesX86 = System.getenv("ProgramFiles(x86)");
-                if (programFiles != null) {
-                    locations.add(new File(programFiles, "Java"));
-                    locations.add(new File(programFiles, "Eclipse Foundation"));
-                }
-                if (programFilesX86 != null) {
-                    locations.add(new File(programFilesX86, "Java"));
-                    locations.add(new File(programFilesX86, "Eclipse Foundation"));
-                }
+//                String programFiles = System.getenv("ProgramFiles");
+//                String programFilesX86 = System.getenv("ProgramFiles(x86)");
+//                if (programFiles != null) {
+//                    locations.add(new File(programFiles, "Java"));
+//                    locations.add(new File(programFiles, "Eclipse Foundation"));
+//                }
+//                if (programFilesX86 != null) {
+//                    locations.add(new File(programFilesX86, "Java"));
+//                    locations.add(new File(programFilesX86, "Eclipse Foundation"));
+//                }
+                addProgramFilesSubdir(locations, "Java");
+                addProgramFilesSubdir(locations, "Eclipse Foundation");
+                addProgramFilesSubdirs(locations, ProgramFilesFileFilter.INSTANCE);
                 break;
             }
             case LINUX: {
@@ -123,6 +128,49 @@ public class JavaFinder {
         }
 
         return locations;
+    }
+    
+    private static void addProgramFilesSubdir(Collection<File> locations, String name) {
+        String programFiles = System.getenv("ProgramFiles");
+        String programFilesX86 = System.getenv("ProgramFiles(x86)");
+        if (programFiles != null) {
+            addFolderIfExists(locations, new File(programFiles, name));
+        }
+        if (programFilesX86 != null) {
+            addFolderIfExists(locations, new File(programFilesX86, name));
+        }
+    }
+
+    private static void addProgramFilesSubdirs(Collection<File> locations, FileFilter predicate) {
+        String programFiles = System.getenv("ProgramFiles");
+        String programFilesX86 = System.getenv("ProgramFiles(x86)");
+        if (programFiles != null) {
+            addSubdirs(locations, new File(programFiles), predicate);
+        }
+        if (programFilesX86 != null) {
+            addSubdirs(locations, new File(programFilesX86), predicate);
+        }
+    }
+
+    private static void addSubdirs(Collection<File> locations, File folder, FileFilter predicate) {
+        if(folder.isDirectory()) {
+            try {
+                for(File subdir : Objects.requireNonNull(folder.listFiles(predicate))) {
+                    addFolderIfExists(locations, subdir);
+                }
+            } catch (Exception ignored) {
+
+            }
+        }
+    }
+
+    private static void addFolderIfExists(Collection<File> locations, File file) {
+        if(locations.contains(file)) {
+            return;
+        }
+        if(file.isDirectory()) {
+            locations.add(file);
+        }
     }
 
     /**

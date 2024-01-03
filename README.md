@@ -32,7 +32,7 @@ The dependency is available on Maven Central:
     <dependency>
         <groupId>com.jeff-media</groupId>
         <artifactId>javafinder</artifactId>
-        <version>1.4.1</version>
+        <version>1.4.2</version>
     </dependency>
 </dependencies>
 ```
@@ -40,7 +40,7 @@ The dependency is available on Maven Central:
 ## Usage
 Print to stdout from command line:
 ```sh
-java -jar javafinder-1.4.jar
+java -jar javafinder-1.4.2.jar
 ```
 
 Or through Java code:
@@ -55,9 +55,8 @@ Collection<JavaInstallation> installations = JavaFinder.builder().build().findIn
 - $HOME/.sdkman/candidates/java
 
 #### Windows
-- $ProgramFiles/Java
+- Every folder in $ProgramFiles or $ProgramFiles(x86) containing "Java", "JDK", or "JRE" (case-insensitive)
 - $ProgramFiles/Eclipse Foundation
-- $ProgramFiles(x86)/Java
 - $ProgramFiles(x86)/Eclipse Foundation
 
 #### Linux
