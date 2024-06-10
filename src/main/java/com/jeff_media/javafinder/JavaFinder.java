@@ -93,18 +93,9 @@ public class JavaFinder {
 
         switch (OperatingSystem.CURRENT) {
             case WINDOWS: {
-//                String programFiles = System.getenv("ProgramFiles");
-//                String programFilesX86 = System.getenv("ProgramFiles(x86)");
-//                if (programFiles != null) {
-//                    locations.add(new File(programFiles, "Java"));
-//                    locations.add(new File(programFiles, "Eclipse Foundation"));
-//                }
-//                if (programFilesX86 != null) {
-//                    locations.add(new File(programFilesX86, "Java"));
-//                    locations.add(new File(programFilesX86, "Eclipse Foundation"));
-//                }
                 addProgramFilesSubdir(locations, "Java");
                 addProgramFilesSubdir(locations, "Eclipse Foundation");
+                addProgramFilesSubdir(locations, "Eclipse Adoptium");
                 addProgramFilesSubdirs(locations, ProgramFilesFileFilter.INSTANCE);
                 break;
             }
