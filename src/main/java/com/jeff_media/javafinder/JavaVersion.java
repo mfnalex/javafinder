@@ -25,6 +25,7 @@ package com.jeff_media.javafinder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -74,7 +75,7 @@ public class JavaVersion implements Comparable<JavaVersion> {
         List<String> output = Collections.unmodifiableList(javaVersionOutput);
 
         String shortVersion = output.get(0).split("\"")[1];
-        String fullVersion = output.get(1).split("\\(build ")[1].split("\\)")[0];
+        String fullVersion = output.get(1).split("build ")[1].split("\\)")[0];
 
         Pattern pattern = !fullVersion.startsWith("1.") ? VERSION_PATTERN : PRE_9_VERSION_PATTERN;
         Matcher matcher = pattern.matcher(fullVersion);
