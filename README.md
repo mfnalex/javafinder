@@ -32,7 +32,7 @@ The dependency is available on Maven Central:
     <dependency>
         <groupId>com.jeff-media</groupId>
         <artifactId>javafinder</artifactId>
-        <version>1.4.3</version>
+        <version>1.4.4</version>
     </dependency>
 </dependencies>
 ```
@@ -40,7 +40,7 @@ The dependency is available on Maven Central:
 ## Usage
 Print to stdout from command line:
 ```sh
-java -jar javafinder-1.4.3.jar
+java -jar javafinder-1.4.4.jar
 ```
 
 Or through Java code:
